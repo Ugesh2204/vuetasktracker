@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <Header title="Task Tracker"/>
-    <AddTask/>
+    <!--On add-task we want to call a function-->
+    <AddTask @add-task="addTask"/>
     <!--receive the emit value her-->
     <Tasks @toggle-reminder = "toggleReminder" @delete-task="deleteTask" 
     :tasks="tasks"/>
@@ -36,6 +37,12 @@ export default {
      //activate the delete task
    //#endregion
     methods: {
+      //add task set it to an array  and spread it to the current task
+      //and add a new one on to it
+      addTask(task){
+        this.tasks = [...this.tasks, task]
+      },
+
       deleteTask(id){
         if(confirm('Are you sure?')) {
           this.tasks = this.tasks.filter((task) => task.id !== id)
